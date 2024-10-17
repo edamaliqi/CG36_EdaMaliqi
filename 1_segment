@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;">
+  Your browser does not support the canvas element.
+</canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+// Draw diagonal lines
+ctx.beginPath();
+ctx.moveTo(0, 0);
+ctx.lineTo(400, 400);  // Diagonal from top-left to bottom-right
+ctx.moveTo(0, 400);
+ctx.lineTo(400, 0);    // Diagonal from bottom-left to top-right
+ctx.stroke();
+
+// Draw vertical line
+ctx.beginPath();
+ctx.moveTo(200, 0);
+ctx.lineTo(200, 400);  // Vertical line
+ctx.stroke();
+
+// Draw horizontal line
+ctx.beginPath();
+ctx.moveTo(0, 200);
+ctx.lineTo(400, 200);  // Horizontal line
+ctx.stroke();
+
+// Add arrows
+function drawArrow(fromX, fromY, toX, toY) {
+  var headlen = 10; // Length of arrowhead
+  var angle = Math.atan2(toY - fromY, toX - fromX);
+  
+  ctx.moveTo(fromX, fromY);
+  ctx.lineTo(toX, toY);
+  
+  ctx.lineTo(toX - headlen * Math.cos(angle - Math.PI / 6), toY - headlen * Math.sin(angle - Math.PI / 6));
+  ctx.moveTo(toX, toY);
+  ctx.lineTo(toX - headlen * Math.cos(angle + Math.PI / 6), toY - headlen * Math.sin(angle + Math.PI / 6));
+}
+
+ctx.beginPath();
+drawArrow(200, 200, 200, 0);   // Arrow up (Y)
+drawArrow(200, 200, 400, 200); // Arrow right (X)
+drawArrow(200, 200, 200, 400); // Arrow down (Y)
+drawArrow(200, 200, 0, 200);   // Arrow left (X)
+ctx.stroke();
+
+// Add labels
+ctx.font = "12px Arial";
+ctx.fillText("(20, -20)", 220, 20);    // Top-right label
+ctx.fillText("(20, 20)", 220, 380);    // Bottom-right label
+ctx.fillText("(-20, 20)", 20, 380);    // Bottom-left label
+ctx.fillText("(-20, -20)", 20, 20);    // Top-left label
+
+</script>
+
+</body>
+</html>
+
+
